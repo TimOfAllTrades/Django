@@ -19,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # An empty path indicates the default path when visiting the page
     path('', include('blog.urls')),
 ]
 #print('Wheres that beef',include('blog.urls'))
