@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+{% block content %}
+Context Variables template
+{% for post in Profile %}
+<h1>{{ post.Name }} </h1>
+<p>Age {{post.Age}} </p>
+<p>Education {{post.Education}} </p>
+{% endfor %}
+{% endblock content %}
