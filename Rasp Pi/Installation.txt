@@ -1,0 +1,56 @@
+
+#Installing lib apache
+sudo apt install libapache2-mod-wsgi-py3
+
+#Installing and enabling wsgi
+sudo a2enmod wsgi
+
+#installing py3
+sudo apt install python3 python3-venv python3-pip
+
+#Modify apache the config file nano file
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+#Addin this text
+'''
+  Alias /static /home/<USERNAME>/pidjango/static
+    <Directory /home/<USERNAME>/pidjango/static>
+        Require all granted
+    </Directory>
+
+    <Directory /home/<USERNAME>/pidjango/pidjango>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    WSGIDaemonProcess django python-path=/home/<USERNAME>/pidjango python-home=/home/<USERNAME>/pidjango/djenv
+    WSGIProcessGroup django
+    WSGIScriptAlias / /home/<USERNAME>/pidjango/pidjango/wsgi.py
+'''
+
+#Above <VirtualHost>
+
+#Restart apache
+sudo systemctl restart apache2
+
+#Make the directories for django.  Tilde means home directory
+mkdir -p ~/pidjango/static
+cd ~/pidjango
+
+#Edit permissions
+sudo chmod 755 ~
+
+#Create python virtual environment
+python3 -m venv djenv
+
+#To use the virtual environment as a source, you need to run the following command.
+source djenv/bin/activate
+#After running this command, you should see “(djenv)” at the start of the command line. This indicates that you are using our new virtual environment as a source.
+
+#As Django is available as a Python package, let us run the following command to download it.
+python3 -m pip install django
+
+#Now that Django is installed, we can create a project
+django-admin startproject pidjango .
+
