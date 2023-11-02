@@ -1,3 +1,7 @@
+#Installing apache
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install apache2 -y
 
 #Installing lib apache
 sudo apt install libapache2-mod-wsgi-py3
@@ -46,6 +50,7 @@ python3 -m venv djenv
 
 #To use the virtual environment as a source, you need to run the following command.
 source djenv/bin/activate
+
 #After running this command, you should see “(djenv)” at the start of the command line. This indicates that you are using our new virtual environment as a source.
 
 #As Django is available as a Python package, let us run the following command to download it.
@@ -53,4 +58,7 @@ python3 -m pip install django
 
 #Now that Django is installed, we can create a project
 django-admin startproject pidjango .
+
+#Creating a project
+python3 manage.py startapp [namehere]
 

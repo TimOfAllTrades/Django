@@ -1,0 +1,4 @@
+Creating a web page
+
+1.) The project folder, in case pidjango, must have its url.py modified to redirect to other folders and scripts
+
