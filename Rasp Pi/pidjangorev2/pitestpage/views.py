@@ -8,5 +8,5 @@ from django.http import HttpResponse
 # Create your tests here.
 
 def hello(request):
-    print("hello")
+    
     return HttpResponse("Hello")

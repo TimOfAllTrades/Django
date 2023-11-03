@@ -24,9 +24,10 @@ from pitestpage import views
 
 
 urlpatterns = [
+    path('', include('main.urls')),
     path('admin/', admin.site.urls),
     #path('pitestpage', include('pitestpage.urls')),    #For additional URLs include file should be /[folder]/urls.py
-    path('pitestpageRun', views.hello)
+    path('HelloWorld/', views.hello)
 
     #path('', include()),       #This is to be used for the default page
 ]
