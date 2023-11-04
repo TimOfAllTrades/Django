@@ -14,8 +14,35 @@
         <p><a href="/HelloWorld/">Click here to go to the about page relative link</a></p>
 
 
-        <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
+        p = <input type="text" id="p" name="p" required minlength="4" maxlength="8" size="10" />
+        <p></p>
+        q = <input type="text" id="q" name="q" required minlength="4" maxlength="8" size="10" />
+        <p></p>
+        n = <input type="text" id="n" name="n" required minlength="4" maxlength="8" size="10" />
+
+        <p><a href="/?p=$p&q=$q&n=$n">Click here to calculate</a></p>
+
+        <button onclick="SendToCalculate()">Click to Calculate</button>
+
     </h1>
 </body>
+
+<script>
+
+    function SendToCalculate() {
+
+        //Retrieving the variables from the document I suppose
+        var p = document.getElementById('p').value
+        var q = document.getElementById('q').value
+        var n = document.getElementById('n').value
+
+        concatenatedurl = "/?p=" + p + "&q=" + q + "&n=" + n
+        console.log(concatenatedurl)
+        window.location.href = concatenatedurl
+    }
+
+
+</script>
+
 
 </html>

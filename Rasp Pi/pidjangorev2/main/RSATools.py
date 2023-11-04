@@ -39,4 +39,3 @@ def nextprime(n):
     while miller_rabin(n, 40) == False:
         n += 1
     return n
-

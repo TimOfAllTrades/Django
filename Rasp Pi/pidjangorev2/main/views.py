@@ -11,17 +11,21 @@ from django.http import HttpResponse
 
 
 def home(request):
-    print("hello")
+    
+    
     InData = {
         'p': 19,
         'q': 48,
         'n': 65537
     }
+
     #Use render to return a home page with the path that is stored in /template of the current directory
-    print(request.GET.get('q', ''))
-    print(request.GET.get('p', ''))
+    Has_q = request.GET.get('q', None)
+    Has_p = request.GET.get('p', None)
+    if Has_q is not None and Has_p is not None:
+        InData['p'] = RSATools.nextprime(int(Has_p))
+        InData['q'] = RSATools.nextprime(int(Has_q))
     
-    InData['p'] = RSATools.nextprime(int(request.GET.get('p', '10')))
     print(InData)
     return render(request, 'main/about.html', InData)
     
