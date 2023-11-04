@@ -5,6 +5,9 @@
     <title>
         The main page
     </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        let outtext = "";
+    </script>
 </head>
 
 <body>
@@ -24,6 +27,9 @@
 
         <button onclick="SendToCalculate()">Click to Calculate</button>
 
+
+
+
     </h1>
 </body>
 
@@ -38,7 +44,36 @@
 
         concatenatedurl = "/?p=" + p + "&q=" + q + "&n=" + n
         console.log(concatenatedurl)
-        window.location.href = concatenatedurl
+        //window.location.href = concatenatedurl
+        increment = ''
+        jQuery.ajax({
+            type: "POST",
+            //url: '/calculate' + concatenatedurl,
+            url: '/calculate/',
+            dataType: 'json',
+            //data: { p: p, q: q },
+            data: { 'p': '5', 'q': '6', 'csrfmiddlewaretoken': '{{ csrf_token }}', },
+
+            success: function (outdata, outtext, xmldata) {
+                console.log('success I think?')
+                increment = outdata;
+                console.log(outdata)
+                console.log(increment)
+                console.log(xmldata.responseText)
+
+            },
+
+            error: function (result) {
+                console.log("didnt work i think")
+
+            }
+
+
+        }
+        );
+        console.log("end of script")
+        console.log(increment)
+
     }
 
     function httpGet(theUrl) {

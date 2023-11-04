@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.mainpageconfig',         #Required for render I suppose
+    'main.apps.mainpageconfig',         #Required for django to find the templates and models for apps and other stuff
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

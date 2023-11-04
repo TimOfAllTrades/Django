@@ -5,7 +5,7 @@ from . import RSATools          #To import a file in the current directory, appa
 
 #Use this to import requests?  I suppose....
 from django.http import HttpResponse
-
+import json
 # Create your tests here.
 
 
@@ -30,3 +30,25 @@ def home(request):
     return render(request, 'main/about.html', InData)
     
     #return HttpResponse("Hello")
+
+def calculate(request):
+
+    InData = {
+        'p': 19,
+        'q': 48,
+        'n': 65537
+    }
+    print(request.POST)
+    
+    Has_q = request.POST.get('q', None)
+    Has_p = request.POST.get('p', None)
+    if Has_q is not None and Has_p is not None:
+        InData['p'] = RSATools.nextprime(int(Has_p))
+        InData['q'] = RSATools.nextprime(int(Has_q))
+    
+    resultcalc = HttpResponse("Hello")
+    print("StatusCode",resultcalc.status_code)
+    print(InData)
+    #print("httpresponsedata", HttpResponse("Hello"))
+    payload =  {'success': True , 'ResponseText' : 'Hello'}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
