@@ -40,12 +40,20 @@ def calculate(request):
     }
     print(request.POST)
     
-    Has_q = request.POST.get('q', None)
-    Has_p = request.POST.get('p', None)
+    Has_q = int(request.POST.get('q', None))
+    Has_p = int(request.POST.get('p', None))
+    Has_n = int(request.POST.get('n', None))
     if Has_q is not None and Has_p is not None:
-        InData['p'] = RSATools.nextprime(int(Has_p))
-        InData['q'] = RSATools.nextprime(int(Has_q))
+        InData['p'] = RSATools.nextprime((Has_p))
+        InData['q'] = RSATools.nextprime((Has_q))
+        
     
+    if Has_n is not None:
+        while RSATools.Eulers_GCD((InData['p']-1)*(InData['q']-1), (Has_n)) != 1:
+            Has_n += 1
+            Has_n = RSATools.nextprime((Has_n))
+        InData['n'] = Has_n
+
     resultcalc = HttpResponse("Hello")
     print("StatusCode",resultcalc.status_code)
     print(InData)

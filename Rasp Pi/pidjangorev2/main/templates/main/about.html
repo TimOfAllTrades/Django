@@ -13,37 +13,51 @@
 <body>
     <h1>
         The main Page
+        <!--
         <p><a href="http://192.168.1.175:7900/HelloWorld/">Click here to go to the about page absolute link</a></p>
         <p><a href="/HelloWorld/">Click here to go to the about page relative link</a></p>
-
-
+        -->
+<p></p>
+        This is a demonstration of how RSA cryptography works. We first need 3 prime numbers, p q and n. Put any 3 numbers in the corresponding text boxes and then click the button to find the next availble prime numbers.
+        <p></p>
         p = <input type="text" id="p" name="p" required minlength="4" maxlength="8" size="10" />
         <p></p>
         q = <input type="text" id="q" name="q" required minlength="4" maxlength="8" size="10" />
         <p></p>
         n = <input type="text" id="n" name="n" required minlength="4" maxlength="8" size="10" />
 
+        <!--
         <p><a href="/?p=$p&q=$q&n=$n">Click here to calculate</a></p>
-
-        <button onclick="SendToCalculate()">Click to Calculate</button>
-
-
+            -->
+            <p></p>
+        <button onclick="SendToCalculate()">Step 1. Find the prime numbers</button>
+        <p></p>
+        RSA cryptography is a form of asymmetric cryptography.  In asymmetric cryptography, a public key is distributed to everyone, but only 1 person holds the private key.
+        <p></p>
+        Data encrypted by the public key can only be decrypted by the private key.  This is used to establish a secure communication channel with the private keyholder
+        <p></p>
+        Data encrypted by the private key can only be decrypted by the public key.  This is used by the private key holder to digitally sign information.
+        <p></p>
+        Using p, q and n.  We will create the public and private key pair.
+        <div id="Text"></div>
 
 
     </h1>
 </body>
 
 <script>
+    outscript = ''
 
     function SendToCalculate() {
+        document.getElementById('Text').innerHTML = outscript;
 
         //Retrieving the variables from the document I suppose
         var p = document.getElementById('p').value
         var q = document.getElementById('q').value
         var n = document.getElementById('n').value
 
-        concatenatedurl = "/?p=" + p + "&q=" + q + "&n=" + n
-        console.log(concatenatedurl)
+        //concatenatedurl = "/?p=" + p + "&q=" + q + "&n=" + n
+        //console.log(concatenatedurl)
         //window.location.href = concatenatedurl
         increment = ''
         jQuery.ajax({
@@ -51,8 +65,9 @@
             //url: '/calculate' + concatenatedurl,
             url: '/calculate/',
             dataType: 'json',
+            async: false,
             //data: { p: p, q: q },
-            data: { 'p': '5', 'q': '6', 'csrfmiddlewaretoken': '{{ csrf_token }}', },
+            data: { 'p': p, 'q': q, 'n': n, 'csrfmiddlewaretoken': '{{ csrf_token }}', },
 
             success: function (outdata, outtext, xmldata) {
                 console.log('success I think?')
@@ -60,7 +75,7 @@
                 console.log(outdata)
                 console.log(increment)
                 console.log(xmldata.responseText)
-
+                outscript = outdata["ResponseText"]
             },
 
             error: function (result) {
@@ -72,16 +87,14 @@
         }
         );
         console.log("end of script")
-        console.log(increment)
+        document.getElementById('Text').innerHTML = outscript;
 
     }
-
-    function httpGet(theUrl) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", theUrl, false); // false for synchronous request
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
+    function RefreshValues() {
+        document.getElementById('Text').innerHTML = outscript;
     }
+
+    //setInterval(RefreshValues, 1000);
 
 </script>
 
