@@ -54,9 +54,14 @@ def calculate(request):
             Has_n = RSATools.nextprime((Has_n))
         InData['n'] = Has_n
 
-    resultcalc = HttpResponse("Hello")
-    print("StatusCode",resultcalc.status_code)
+    pkey = RSATools.Get_Private_Key(InData['p'], InData['q'],InData['n'])
+    print(pkey)
+
+    #resultcalc = HttpResponse("Hello")
+    #print("StatusCode",resultcalc.status_code)
     print(InData)
+    pqn = str(InData['p']) + "," + str(InData['q']) + "," + str(InData['n']) + "," + str(pkey)
+    print("pqn",pqn)
     #print("httpresponsedata", HttpResponse("Hello"))
-    payload =  {'success': True , 'ResponseText' : 'Hello'}
+    payload =  {'success': True , 'ResponseText' : pqn}
     return HttpResponse(json.dumps(payload), content_type='application/json')

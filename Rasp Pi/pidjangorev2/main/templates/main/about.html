@@ -38,18 +38,24 @@
         <p></p>
         Data encrypted by the private key can only be decrypted by the public key.  This is used by the private key holder to digitally sign information.
         <p></p>
-        Using p, q and n.  We will create the public and private key pair.
-        <div id="Text"></div>
-
+        Using p, q and n.  We will create the public and private key pair.  The private key is a number so that [private key]*n/((p-1)*(q-1)) has a remainder of 1.
+        <p></p>
+        next prime of p is<div id="pprime"></div>
+        next prime of q is<div id="qprime"></div>
+        next prime of n (that is coprime with (p-1)*(q-1)) is<div id="nprime"></div>
+        The private key is <div id="pkey"></div>
 
     </h1>
 </body>
 
 <script>
     outscript = ''
-
+    pprime = 0
+    qprime = 0
+    nprime = 0
+    pkey = 0
     function SendToCalculate() {
-        document.getElementById('Text').innerHTML = outscript;
+        //document.getElementById('Text').innerHTML = outscript;
 
         //Retrieving the variables from the document I suppose
         var p = document.getElementById('p').value
@@ -76,6 +82,12 @@
                 console.log(increment)
                 console.log(xmldata.responseText)
                 outscript = outdata["ResponseText"]
+                pprime = outscript.split(",")[0]
+                qprime = outscript.split(",")[1]
+                nprime = outscript.split(",")[2]
+                pkey = outscript.split(",")[3]
+                console.log(pprime)
+                console.log(qprime)
             },
 
             error: function (result) {
@@ -87,7 +99,10 @@
         }
         );
         console.log("end of script")
-        document.getElementById('Text').innerHTML = outscript;
+        document.getElementById('pprime').innerHTML = pprime;
+        document.getElementById('qprime').innerHTML = qprime;
+        document.getElementById('nprime').innerHTML = nprime;
+        document.getElementById('pkey').innerHTML = pkey;
 
     }
     function RefreshValues() {

@@ -39,3 +39,12 @@ def nextprime(n):
     while miller_rabin(n, 40) == False:
         n += 1
     return n
+
+
+def Get_Private_Key(p, q, n):
+    totient = (p-1)*(q-1)
+    for i in range(0, n):
+        if ((i * totient)+1) % n == 0:
+            print("Found private key ")
+            print("on iteration ", i)
+            return ((i * totient)+1)//n
