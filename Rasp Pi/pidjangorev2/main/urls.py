@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='main-home'),     #The default home function
-    path('calculate/', views.calculate, name='main-calculate')
+    path('calculate/', views.calculate, name='main-calculate'),
+    path('encrypt/', views.encrypt, name='main-encrypt')
 ]

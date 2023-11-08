@@ -65,3 +65,17 @@ def calculate(request):
     #print("httpresponsedata", HttpResponse("Hello"))
     payload =  {'success': True , 'ResponseText' : pqn}
     return HttpResponse(json.dumps(payload), content_type='application/json')
+
+def encrypt(request):
+
+    plaintext = int(request.POST.get('plaintext', None))
+    print("plaintext",plaintext)
+    n = int(request.POST.get('n', None))
+    pq = int(request.POST.get('pq', None))
+    print("plaintext",plaintext)
+    print("n",plaintext)
+    print("pq",plaintext)
+    ctext = RSATools.ModuloExponent(plaintext, n, pq)
+    print(ctext)
+    payload =  {'success': True , 'ResponseText' : ctext}
+    return HttpResponse(json.dumps(payload), content_type='application/json')

@@ -48,3 +48,16 @@ def Get_Private_Key(p, q, n):
             print("Found private key ")
             print("on iteration ", i)
             return ((i * totient)+1)//n
+        
+def ModuloExponent(base, exponent, modulus):
+    if modulus == 1:
+        return 0
+    result = 1
+    base = base % modulus
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        exponent //= 2
+        base = (base*base) % modulus
+    return result
+

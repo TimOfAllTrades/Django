@@ -43,7 +43,26 @@
         next prime of p is<div id="pprime"></div>
         next prime of q is<div id="qprime"></div>
         next prime of n (that is coprime with (p-1)*(q-1)) is<div id="nprime"></div>
+        The modulus is <div id="pq"></div>
         The private key is <div id="pkey"></div>
+        <p></p>
+        We want to transmit a secret number to the private key holder.  The private key holder provides us the modulus p*q and n.  To encrypt the secret number, a.k.a. plaintext so that no one else can read it, we need to raise the secret number to the n power and fetch the remainder when divided by the modulus.
+            <p></p>
+            Input a secret number that is smaller than the modulus.
+            <p></p>
+            plaintext = <input type="text" id="plaintext" name="plaintext" required minlength="4" maxlength="8" size="10" />
+
+            <button onclick="Encrypt()">Step 2. Encrypt the secret number</button>
+
+        <p></p>
+        The when the plain text is encrypted through the function, the resulting ciphertext is: <div id="ctext"></div>
+
+        <p></p>
+        To convert the ciphertext back to the plaintext, we raise the ciphertext to the private key's power and divide it by the modulus and get the remainder
+
+        <div id="normaltext"></div>
+
+        Only the private key holder can turn the cipher text back to the plain text by doing the exponent modulo with the private key.
 
     </h1>
 </body>
@@ -102,9 +121,45 @@
         document.getElementById('pprime').innerHTML = pprime;
         document.getElementById('qprime').innerHTML = qprime;
         document.getElementById('nprime').innerHTML = nprime;
+        document.getElementById('pq').innerHTML = pprime*qprime;
         document.getElementById('pkey').innerHTML = pkey;
 
     }
+
+    function Encrypt() {
+        var p = document.getElementById('pprime').value
+        var q = document.getElementById('qprime').value
+        var n = document.getElementById('nprime').value
+        var plaintext = document.getElementById('plaintext').value 
+        console.log(nprime)
+        jQuery.ajax({
+            type: "POST",
+            //url: '/calculate' + concatenatedurl,
+            url: '/encrypt/',
+            dataType: 'json',
+            async: false,
+            //data: { p: p, q: q },
+            data: { 'plaintext': plaintext, 'n': nprime, 'pq': pprime*qprime, 'csrfmiddlewaretoken': '{{ csrf_token }}', },
+
+            success: function (outdata, outtext, xmldata) {
+                console.log('success I think?')
+                
+                outscript = outdata["ResponseText"]
+                console.log(outscript)
+            },
+
+            error: function (result) {
+                console.log("didnt work i think")
+
+            }
+
+
+        }
+        );
+        document.getElementById('ctext').innerHTML = outscript;
+
+    }
+
     function RefreshValues() {
         document.getElementById('Text').innerHTML = outscript;
     }
