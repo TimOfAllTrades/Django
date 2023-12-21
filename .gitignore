@@ -1,3 +1,5 @@
 *.pyc
 *.ffs_db
 *.sqlite3
+*.mp3
+*.png
