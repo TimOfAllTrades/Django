@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post        #Models needs to be imported.
 
 
 def home(request):
