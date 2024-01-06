@@ -22,6 +22,7 @@ def home(request):
     context = {
         'Profile': Profiles
     }
+    
     # return HttpResponse('<h1>Blog Home</h1>')
     return render(request, 'blog/ContextVarsChild.html', context)
     # return render(request, 'blog/ContextVars.html', context)
